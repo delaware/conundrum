@@ -1,4 +1,5 @@
 package model;
 
-public class Turntable {
+public class Turntable extends Thread {
+
 }

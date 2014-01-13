@@ -3,13 +3,18 @@ package model;
 public class Gift {
 
     private int group;
-    private String wrapper;
+    private Elf wrapper;
     private String name;
 
-    public Gift(String wrapper) {
+    public Gift(Elf wrapper) {
         this.wrapper = wrapper;
         randomizeCategory();
         randomizeName();
+    }
+
+    public Gift(String name, int group) {
+        this.name = name;
+        this.group = group;
     }
 
     public void randomizeName() {
@@ -30,9 +35,7 @@ public class Gift {
         return this.group;
     }
 
-    public String getWrapper() {
-        return this.wrapper;
-    }
+    public Elf getWrapper() { return this.wrapper; }
 
     public String getName() {
         return this.name;

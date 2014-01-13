@@ -1,13 +1,15 @@
 package model;
 
-public class Clock implements Runnable {
+public class Clock extends Thread {
 
     static int time = 0;
+    static int endOfDay = 5;
+    private boolean stop = false;
 
     public void run() {
-        while(true) {
+        while(!stop) {
+            inc();
             try {
-                inc();
                 Thread.sleep(1000);
             } catch (InterruptedException e) {}
         }
@@ -19,5 +21,9 @@ public class Clock implements Runnable {
 
     public static synchronized int time() {
         return time;
+    }
+
+    public void requestStop() {
+        stop = true;
     }
 }

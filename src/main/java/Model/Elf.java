@@ -3,17 +3,18 @@ package model;
 public class Elf extends Thread {
     // random name
     protected String name;
+    protected int motivation = (int) (Math.random()*500)+500;
 
-    Belt buf;
+    Belt[] belts;
     Clock c;
     int id;
     int number;
+    int ticks;
 
-    public Elf(int id, Belt b, int numItems, Clock c) {
+    public Elf(int id, Belt[] b, Clock c) {
         this.id = id;
         this.c = c;
-        buf = b;
-        number = numItems;
+        belts = b;
         createName();
     }
 
@@ -24,5 +25,9 @@ public class Elf extends Thread {
         int i = (int) (Math.random() * lastnames.length);
         int j = (int) (Math.random() * firstnames.length);
         this.name = firstnames[j] + " " + lastnames[i];
+    }
+
+    public void incTicksWaited() {
+        ticks++;
     }
 }
