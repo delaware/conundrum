@@ -16,7 +16,7 @@ public class RedHatElf extends Elf {
     public void run() {
         for (int i=0; i < number; i++){
             try {
-                sleep((int) (Math.random() * 1000));
+                sleep((int) (Math.random() * 500));
             } catch (InterruptedException ex) {
             }
             produce();

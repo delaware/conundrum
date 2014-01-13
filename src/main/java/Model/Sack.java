@@ -14,10 +14,10 @@ public class Sack extends Thread {
     }
     public boolean consume(){
         Gift nextItem = buf.extract();
-        if(nextItem.getGroup() == group) {
+        //if(nextItem.getGroup() == group) {
             System.out.println("Time " + c.time() + ": Consumer "+ group +" consuming: "+ nextItem.getName() + " cat: " + nextItem.getGroup());
-        }
-        return !nextItem.equals(null);
+        //}
+        return nextItem!=null;
     }
 
     public void run(){

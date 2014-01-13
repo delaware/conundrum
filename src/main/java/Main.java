@@ -8,7 +8,7 @@ public class Main {
         Thread tc = new Thread(clock);
         tc.start();
 
-        Belt beltA = new Belt(5, clock);
+        Belt beltA = new Belt(2, clock);
         //Belt beltB = new Belt(2, clock);
 
         Sack c1 = new Sack(beltA,1,clock,1);
@@ -28,15 +28,12 @@ public class Main {
         //p2.start();
         //p3.start();
 
+        //beltA.insert(null);
+        //beltB.insert("*****");
         try {
             p1.join();
             //p2.join();
             //p3.join();
-        } catch (InterruptedException ex) {
-        }
-        beltA.insert(null);
-        //beltB.insert("*****");
-        try {
             c1.join();
             c2.join();
             //c3.join();
