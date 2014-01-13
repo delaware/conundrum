@@ -8,42 +8,41 @@ public class Main {
         Thread tc = new Thread(clock);
         tc.start();
 
-        Belt beltA = new Belt(6, clock);
-        Belt beltB = new Belt(2, clock);
+        Belt beltA = new Belt(5, clock);
+        //Belt beltB = new Belt(2, clock);
 
-        Sack c1 = new Sack(beltA,1,clock);
-        Sack c2 = new Sack(beltA,2,clock);
-        Sack c3 = new Sack(beltB,3,clock);
-        Sack c4 = new Sack(beltB,4,clock);
+        Sack c1 = new Sack(beltA,1,clock,1);
+        Sack c2 = new Sack(beltA,2,clock,2);
+        //Sack c3 = new Sack(beltA,3,clock,3);
+        //Sack c4 = new Sack(beltA,4,clock,4);
 
-        Producer p1 = new Producer(1,beltA,50,clock);
-        Producer p2 = new Producer(2,beltA,50,clock);
-        Producer p3 = new Producer(3,beltB,50,clock);
+        RedHatElf p1 = new RedHatElf(1,beltA,10,clock);
+        //RedHatElf p2 = new RedHatElf(2,beltA,30,clock);
+        //RedHatElf p3 = new RedHatElf(3,beltB,30,clock);
 
         c1.start();
         c2.start();
-        c3.start();
-        c4.start();
+        //c3.start();
+        //c4.start();
         p1.start();
-        p2.start();
-        p3.start();
+        //p2.start();
+        //p3.start();
 
         try {
             p1.join();
-            p2.join();
-            p3.join();
+            //p2.join();
+            //p3.join();
         } catch (InterruptedException ex) {
         }
-        beltA.insert("*****");
-        beltB.insert("*****");
+        beltA.insert(null);
+        //beltB.insert("*****");
         try {
             c1.join();
             c2.join();
-            c3.join();
-            c4.join();
+            //c3.join();
+            //c4.join();
         } catch (InterruptedException ex) {}
 
         tc.interrupt();
-
     }
 }

@@ -1,25 +1,26 @@
 package model;
 
 public class Belt {
-    private String [] body;
+    private Gift [] body;
     private int nextIn=0;
     private int nextOut=0;
     private int available;
     Clock c;
 
     public Belt(int size, Clock c){
-        body = new String[size];
+        body = new Gift[size];
         this.c = c;
         available = 0;
     }
 
-    public synchronized void insert(String item){
+    public synchronized void insert(Gift item){
         while (available == body.length){
             System.out.println("Time " + c.time + ": insert waiting");
 
             try {
                 wait();
-            } catch (InterruptedException ex) {
+            }
+            catch (InterruptedException ex) {
             }
 
         }
@@ -38,18 +39,18 @@ public class Belt {
         notifyAll();
     }
 
-    public synchronized String extract(){
-        String res="";
+    public synchronized Gift extract(){
+        Gift res;
         while (available == 0){
             System.out.println("Time " + c.time + ": extract waiting");
 
             try {
                 wait();
-            } catch (InterruptedException ex) {
             }
-
-
+            catch (InterruptedException ex) {
+            }
         }
+
         res = body[nextOut];
         try {
             Thread.sleep((int) (Math.random() * 10));
@@ -58,7 +59,7 @@ public class Belt {
         available--;
 
         if (res==null)
-            res = "invalid item";
+            System.out.println("Time " + c.time + ": invalid item");
 
         nextOut++;
         if (nextOut==body.length)

@@ -4,16 +4,20 @@ public class Sack extends Thread {
     Belt buf;
     int id;
     Clock c;
+    int group;
 
-    public Sack(Belt b, int consumerNum, Clock c) {
-        buf = b;
+    public Sack(Belt b, int consumerNum, Clock c, int group) {
+        this.buf = b;
         this.c = c;
-        id = consumerNum;
+        this.id = consumerNum;
+        this.group = group;
     }
     public boolean consume(){
-        String nextItem = buf.extract();
-        System.out.println("Time " + c.time() + ": Consumer "+id+" consuming: "+ nextItem);
-        return !nextItem.equals("****");
+        Gift nextItem = buf.extract();
+        if(nextItem.getGroup() == group) {
+            System.out.println("Time " + c.time() + ": Consumer "+ group +" consuming: "+ nextItem.getName() + " cat: " + nextItem.getGroup());
+        }
+        return !nextItem.equals(null);
     }
 
     public void run(){
@@ -23,6 +27,6 @@ public class Sack extends Thread {
             } catch (InterruptedException ex) {
             }
         }
-        buf.insert("****");
+        buf.insert(null);
     }
 }
