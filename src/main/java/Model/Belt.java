@@ -5,15 +5,17 @@ public class Belt {
     private int nextIn=0;
     private int nextOut=0;
     private int available;
+    Clock c;
 
-    public Belt(int size){
+    public Belt(int size, Clock c){
         body = new String[size];
+        this.c = c;
         available = 0;
     }
 
     public synchronized void insert(String item){
         while (available == body.length){
-            System.out.println("insert waiting");
+            System.out.println("Time " + c.time + ": insert waiting");
 
             try {
                 wait();
@@ -32,14 +34,14 @@ public class Belt {
             nextIn = 0;
         }
         if (available == body.length)
-            System.out.println("buffer full");
+            System.out.println("Time " + c.time + ": buffer full");
         notifyAll();
     }
 
     public synchronized String extract(){
         String res="";
         while (available == 0){
-            System.out.println("extract waiting");
+            System.out.println("Time " + c.time + ": extract waiting");
 
             try {
                 wait();
@@ -63,7 +65,7 @@ public class Belt {
             nextOut=0;
 
         if (available == 0)
-            System.out.println("buffer empty");
+            System.out.println("Time " + c.time + ": buffer empty");
 
         notifyAll();
         return res;
