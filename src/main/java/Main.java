@@ -1,5 +1,7 @@
 import model.*;
 
+import java.awt.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -16,18 +18,25 @@ public class Main {
         Belt beltB = new Belt(2, clock, "Belt B");
         Belt beltC = new Belt(2, clock, "Belt C");
 
-        Sack c1 = new Sack(inputA,1,clock,1);
-        Sack c2 = new Sack(inputB,2,clock,2);
-//        Sack c1 = new Sack(beltA,1,clock,1);
-//        Sack c2 = new Sack(beltA,2,clock,2);
-//        Sack c3 = new Sack(beltB,3,clock,3);
-//        Sack c4 = new Sack(beltC,4,clock,4);
+        Sack c1 = new Sack(1,clock,"Sack C1",1);
+        Sack c2 = new Sack(2,clock,"Sack C2",2);
+        Sack c3 = new Sack(3,clock,"Sack C3",3);
+        Sack c4 = new Sack(4,clock,"Sack C4",4);
 
-        Turntable turnA = new Turntable(inputA,beltA,null,null,clock);
-//        Turntable turnB = new Turntable(inputB,beltA,c1,beltB);
-//        Turntable turnC = new Turntable(beltB,c2,c3,c4);
+        Sack[] sacks = {c1,c2,c3,c4};
 
-        turnA.start();
+        Turntable turnA = new Turntable(inputA,beltA,null,null,clock,"Turn A");
+        Turntable turnB = new Turntable(inputB,c1,beltB,beltA,clock,"Turn B");
+        Turntable turnC = new Turntable(beltB,c2,c3,c4,clock,"Turn C");
+
+        Thread thTurnA = new Thread(turnA);
+        thTurnA.start();
+
+        Thread thTurnB = new Thread(turnB);
+        thTurnB.start();
+
+        Thread thTurnC = new Thread(turnC);
+        thTurnC.start();
 
         // initialize RedHattedElves
         int numReds = 5;
@@ -38,16 +47,26 @@ public class Main {
             redElves[i].start();
         }
 
-        c1.start();
-        c2.start();
-//        c3.start();
-//        c4.start();
+        // initialize RedHattedElves
+        int numGreens = 5;
+        GreenHatElf greenElves[] = new GreenHatElf[numGreens];
+
+        for(int i=0;i<greenElves.length;i++) {
+            greenElves[i] = new GreenHatElf(i,sacks,clock);
+            greenElves[i].start();
+        }
 
         try {
             for(int i=0;i<redElves.length;i++) {
                 redElves[i].join();
             }
+            for(int i=0;i<greenElves.length;i++) {
+                greenElves[i].join();
+            }
         } catch (InterruptedException ex) {}
+
+
+
 
         Gift g = new Gift("END",0);
         inputA.insert(g);
@@ -56,19 +75,17 @@ public class Main {
         beltB.insert(g);
         beltC.insert(g);
 
-        try {
-            c1.join();
-            c2.join();
-//            c3.join();
-//            c4.join();
-        } catch (InterruptedException ex) {}
-
         turnA.requestStop();
+        turnB.requestStop();
+        turnC.requestStop();
         clock.requestStop();
 
         System.out.println("Theme Park closed:");
         for(int i=0;i<redElves.length;i++) {
             redElves[i].status();
+        }
+        for(int i=0;i<greenElves.length;i++) {
+            greenElves[i].status();
         }
     }
 }

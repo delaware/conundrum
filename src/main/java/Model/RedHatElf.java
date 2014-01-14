@@ -2,15 +2,17 @@ package model;
 
 // producing gifts for sorting machine
 public class RedHatElf extends Elf {
+    Belt[] belts;
 
-    public RedHatElf(int id, Belt[] b, Clock c) {
-        super(id,b,c);
+    public RedHatElf(int id, Belt[] belts, Clock clock) {
+        super(id,clock);
+        this.belts = belts;
     }
 
     public void produce(){
         Gift g = new Gift(this);
         System.out.println("Time " + c.time() + ": " + this.name + " producing item: " + g.getName() + " cat:" + g.getGroup());
-        int i = (int) Math.random()*belts.length;
+        int i = (int) Math.random()*(belts.length+1);
         belts[i].insert(g);
     }
 

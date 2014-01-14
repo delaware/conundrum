@@ -5,16 +5,14 @@ public class Elf extends Thread {
     protected String name;
     protected int motivation = (int) (Math.random()*500)+500;
 
-    Belt[] belts;
     Clock c;
     int id;
     int number;
     int ticks;
 
-    public Elf(int id, Belt[] b, Clock c) {
+    public Elf(int id, Clock c) {
         this.id = id;
         this.c = c;
-        belts = b;
         createName();
     }
 

@@ -2,25 +2,33 @@ package model;
 
 // delivers gifts to grottos
 public class GreenHatElf extends Elf {
+    Sack[] sacks;
 
-    public GreenHatElf(int id, Belt[] b, Clock c) {
-        super(id,b,c);
+    public GreenHatElf(int id, Sack[] sacks, Clock clock) {
+        super(id,clock);
+        this.sacks = sacks;
     }
 
-    public void produce(int i){
-        Gift g = new Gift(this);
-        System.out.println("Time " + c.time() + ": " + this.name + " producing item: " + g.getName() + " cat:" + g.getGroup());
-        int j = (int) Math.random() * belts.length;
-        belts[j].insert(g);
+    public void produce(){
+        int i = (int) Math.random() * sacks.length;
+        if(sacks[i].empty()) {
+            number++;
+        } else {
+            incTicksWaited();
+        }
     }
 
     public void run() {
-        for (int i=0; i < number; i++){
+        while(c.time < c.endOfDay){
             try {
-                sleep((int) (Math.random() * 1000));
+                sleep(motivation);
             } catch (InterruptedException ex) {
             }
-            produce(i);
+            produce();
         }
+    }
+
+    public void status() {
+        System.out.println(name + " took " + number + " sacks, waited " + ticks + " ticks! (Motivation:" + motivation + ")");
     }
 }
