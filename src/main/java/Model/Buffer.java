@@ -8,7 +8,6 @@ public class Buffer {
     protected int available;
     protected Clock c;
     protected String name;
-    protected boolean isInput = false;
     protected int category;
     protected boolean isSack = false;
 
@@ -26,16 +25,14 @@ public class Buffer {
                 wait();
                 if(item.getWrapper() != null ) { item.getWrapper().incTicksWaited(); }
             }
-            catch (InterruptedException ex) {
-            }
+            catch (InterruptedException ex) {}
 
         }
         body[nextIn] = item;
         available = available + 1;
         try {
             Thread.sleep((int) (Math.random() * 10));
-        } catch (InterruptedException ex) {
-        }
+        } catch (InterruptedException ex) {}
         nextIn++;
         if(nextIn == body.length){
             nextIn = 0;
@@ -58,8 +55,7 @@ public class Buffer {
         res = body[nextOut];
         try {
             Thread.sleep((int) (Math.random() * 10));
-        } catch (InterruptedException ex) {
-        }
+        } catch (InterruptedException ex) {}
         available--;
 
         if (res==null)

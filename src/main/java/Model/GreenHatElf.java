@@ -24,8 +24,7 @@ public class GreenHatElf extends Elf {
         while(!stop){
             try {
                 sleep(motivation);
-            } catch (InterruptedException ex) {
-            }
+            } catch (InterruptedException ex) {}
             produce();
         }
     }

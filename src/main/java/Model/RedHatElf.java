@@ -20,8 +20,7 @@ public class RedHatElf extends Elf {
         while(c.time < c.endOfDay){
             try {
                 sleep(motivation);
-            } catch (InterruptedException ex) {
-            }
+            } catch (InterruptedException ex) {}
             produce();
             number++;
         }
