@@ -12,7 +12,7 @@ public class RedHatElf extends Elf {
     public void produce(){
         Gift g = new Gift(this);
         System.out.println("Time " + c.time() + ": " + this.name + " producing item: " + g.getName() + " cat:" + g.getGroup());
-        int i = (int) Math.random()*(belts.length+1);
+        int i = (int) (Math.random()*belts.length);
         belts[i].insert(g);
     }
 

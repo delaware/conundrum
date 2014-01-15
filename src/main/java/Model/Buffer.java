@@ -9,19 +9,19 @@ public class Buffer {
     protected Clock c;
     protected String name;
     protected boolean isInput = false;
+    protected int category;
+    protected boolean isSack = false;
 
-    public Buffer(int size, Clock c, String name, boolean isInput){
+    public Buffer(int size, Clock c, String name){
         body = new Gift[size];
         this.c = c;
         this.name = name;
-        this.isInput = isInput;
         this.available = 0;
     }
 
     public synchronized void insert(Gift item){
         while (available == body.length){
             System.out.println("Time " + c.time + ": " + name + " insert waiting");
-
             try {
                 wait();
                 if(item.getWrapper() != null ) { item.getWrapper().incTicksWaited(); }
@@ -76,7 +76,7 @@ public class Buffer {
         return res;
     }
 
-    protected boolean isInput() {
-        return isInput;
+    public boolean isSack() {
+        return isSack;
     }
 }

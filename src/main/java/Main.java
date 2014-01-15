@@ -9,25 +9,24 @@ public class Main {
         Clock clock = new Clock();
         clock.start();
 
-        Belt inputA = new Belt(2, clock, "InputBelt A");
-        Belt inputB = new Belt(3, clock, "InputBelt B");
+        Belt inputA = new Belt(4, clock, "InputBelt A");
+        Belt inputB = new Belt(2, clock, "InputBelt B");
         Belt[] belts = {inputA,inputB};
 
 
-        Belt beltA = new Belt(2, clock, "Belt A");
+        Belt beltA = new Belt(3, clock, "Belt A");
         Belt beltB = new Belt(2, clock, "Belt B");
-        Belt beltC = new Belt(2, clock, "Belt C");
 
         Sack c1 = new Sack(1,clock,"Sack C1",1);
         Sack c2 = new Sack(2,clock,"Sack C2",2);
         Sack c3 = new Sack(3,clock,"Sack C3",3);
         Sack c4 = new Sack(4,clock,"Sack C4",4);
 
-        Sack[] sacks = {c1,c2,c3,c4};
+        Sack[] sacks = {c1,c2,c2,c3};
 
-        Turntable turnA = new Turntable(inputA,beltA,null,null,clock,"Turn A");
-        Turntable turnB = new Turntable(inputB,c1,beltB,beltA,clock,"Turn B");
-        Turntable turnC = new Turntable(beltB,c2,c3,c4,clock,"Turn C");
+        Turntable turnA = new Turntable(inputA,beltA,null,null,8,clock,"Turn A");
+        Turntable turnB = new Turntable(inputB,c1,beltB,beltA,9,clock,"Turn B");
+        Turntable turnC = new Turntable(beltB,c2,c3,c4,8,clock,"Turn C");
 
         Thread thTurnA = new Thread(turnA);
         thTurnA.start();
@@ -48,7 +47,7 @@ public class Main {
         }
 
         // initialize RedHattedElves
-        int numGreens = 5;
+        int numGreens = 2;
         GreenHatElf greenElves[] = new GreenHatElf[numGreens];
 
         for(int i=0;i<greenElves.length;i++) {
@@ -60,9 +59,9 @@ public class Main {
             for(int i=0;i<redElves.length;i++) {
                 redElves[i].join();
             }
-            for(int i=0;i<greenElves.length;i++) {
-                greenElves[i].join();
-            }
+//            for(int i=0;i<greenElves.length;i++) {
+//                greenElves[i].join();
+//            }
         } catch (InterruptedException ex) {}
 
 
@@ -73,7 +72,6 @@ public class Main {
         inputB.insert(g);
         beltA.insert(g);
         beltB.insert(g);
-        beltC.insert(g);
 
         turnA.requestStop();
         turnB.requestStop();
@@ -85,6 +83,7 @@ public class Main {
             redElves[i].status();
         }
         for(int i=0;i<greenElves.length;i++) {
+            greenElves[i].requestStop();
             greenElves[i].status();
         }
     }

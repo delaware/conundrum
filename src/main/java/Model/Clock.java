@@ -3,7 +3,7 @@ package model;
 public class Clock extends Thread {
 
     static int time = 0;
-    static int endOfDay = 5;
+    static int endOfDay = 100;
     private boolean stop = false;
 
     public void run() {

@@ -28,7 +28,7 @@ public class Gift {
     // 3 .. 08-12 years
     // 4 .. 12-16 years
     public void randomizeCategory() {
-        this.group = (int) (2*Math.random()+1);
+        this.group = (int) (3*Math.random()+1);
     }
 
     public int getGroup() {

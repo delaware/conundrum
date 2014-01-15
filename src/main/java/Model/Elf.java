@@ -17,8 +17,8 @@ public class Elf extends Thread {
     }
 
     public void createName() {
-        String[] firstnames = {"Bob","Jill","Tom","Brandon","Alice","Jenny"};
-        String[] lastnames = {"Hofer","Maier","Eder","Krampus","Wonderland","McGood"};
+        String[] firstnames = {"Bob","Jill","Tom","Brandon","Alice","Jenny","Rudolph","Bilbo","Frodo"};
+        String[] lastnames = {"Hofer","Maier","Eder","Krampus","Wonderland","McGood","Baggin"};
 
         int i = (int) (Math.random() * lastnames.length);
         int j = (int) (Math.random() * firstnames.length);
