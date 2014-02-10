@@ -23,7 +23,7 @@ public class Main {
 
         // additional information for the elves
         Belt[] belts = {inputA,inputB};
-        Sack[] sacks = {c1,c2,c2,c3};
+        Sack[] sacks = {c1,c2,c3,c4};
 
         Turntable turnA = new Turntable(inputA,beltA,null,null,8,clock,"Turn A");
         Turntable turnB = new Turntable(inputB,c1,beltB,beltA,9,clock,"Turn B");
@@ -51,16 +51,14 @@ public class Main {
             for(int i=0;i<redElves.length;i++) {
                 redElves[i].join();
             }
-//            for(int i=0;i<greenElves.length;i++) {
-//                greenElves[i].join();
-//            }
         } catch (InterruptedException ex) {}
 
-        Gift g = new Gift("END",0);
-        inputA.insert(g);
-        inputB.insert(g);
-        beltA.insert(g);
-        beltB.insert(g);
+        // if this gift equals a stop signal
+//        Gift g = new Gift("END",0);
+//        inputA.insert(g);
+//        inputB.insert(g);
+//        beltA.insert(g);
+//        beltB.insert(g);
 
         turnA.requestStop();
         turnB.requestStop();
